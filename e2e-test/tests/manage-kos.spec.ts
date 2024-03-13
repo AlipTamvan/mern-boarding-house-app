@@ -19,8 +19,8 @@ test.beforeEach(async ({ page }) => {
   await expect(page.getByText("Login Berhasil")).toBeVisible();
 });
 
-test("Should Allow User To Add A Hotel", async ({ page }) => {
-  await page.goto(`${UI_URL}add-hotel`);
+test("Should Allow User To Add A Kos", async ({ page }) => {
+  await page.goto(`${UI_URL}add-kos`);
   await page.locator('[name="name"]').fill("Test Hotel");
   await page.locator('[name="phoneNumber"]').fill("081");
   await page.locator('[name="city"]').fill("Mataram");
@@ -47,6 +47,6 @@ test("Should Allow User To Add A Hotel", async ({ page }) => {
   await page.getByRole("button", { name: "Simpan" }).click();
   await expect(page.getByRole("button", { name: "Menyimpan" })).toBeVisible();
   await expect(page.getByText("Hotel Berhasil Di Tambahkan")).toBeVisible({
-    timeout: 25000,
+    // timeout: 25000,
   });
 });

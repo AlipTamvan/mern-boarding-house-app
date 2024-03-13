@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export type HotelType = {
+export type KosType = {
   _id: string;
   userId: string;
   name: string;
@@ -17,7 +17,7 @@ export type HotelType = {
   imageUrls: string[];
   lastUpdated: Date;
 };
-const hotelSchema = new mongoose.Schema<HotelType>({
+const KosSchema = new mongoose.Schema<KosType>({
   userId: { type: String, required: true },
   name: { type: String, required: true },
   phoneNumber: { type: String, required: true },
@@ -34,5 +34,5 @@ const hotelSchema = new mongoose.Schema<HotelType>({
   lastUpdated: { type: Date, required: true },
 });
 
-const Hotel = mongoose.model<HotelType>("Hotel", hotelSchema);
-export default Hotel;
+const Kos = mongoose.model<KosType>("Kos", KosSchema);
+export default Kos;

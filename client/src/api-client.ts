@@ -64,8 +64,8 @@ export const signOut = async () => {
   }
 };
 
-export const addMyHotel = async (hotelFormData: FormData) => {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+export const addMyKos = async (hotelFormData: FormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/my-kos`, {
     credentials: "include",
     method: "POST",
     body: hotelFormData,

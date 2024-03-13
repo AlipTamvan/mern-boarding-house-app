@@ -7,7 +7,7 @@ import {
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
-import AddHotel from "./pages/AddHotel";
+import AddHotel from "./pages/AddKos";
 import { useAppContext } from "./contexts/AppContext";
 
 const App = () => {
@@ -50,7 +50,7 @@ const App = () => {
         {isLoggedIn && (
           <>
             <Route
-              path="/add-hotel"
+              path="/add-kos"
               element={
                 <Layout>
                   <AddHotel />

@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import multer from "multer";
 import cloudinary from "cloudinary";
-import Hotel, { HotelType } from "../models/hotel";
+import Kos, { KosType } from "../models/kos";
 import verifyToken from "../middleware/auth";
 import { body } from "express-validator";
 
@@ -38,7 +38,7 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const imageFiles = req.files as Express.Multer.File[];
-      const newHotel: HotelType = req.body;
+      const newKos: KosType = req.body;
 
       const uploadPromises = imageFiles.map(async (image) => {
         const b64 = Buffer.from(image.buffer).toString("base64");
@@ -49,16 +49,16 @@ router.post(
 
       const imageUrls = await Promise.all(uploadPromises);
 
-      newHotel.imageUrls = imageUrls;
-      newHotel.lastUpdated = new Date();
-      newHotel.userId = req.userId;
+      newKos.imageUrls = imageUrls;
+      newKos.lastUpdated = new Date();
+      newKos.userId = req.userId;
 
-      const hotel = new Hotel(newHotel);
-      await hotel.save();
+      const kos = new Kos(newKos);
+      await kos.save();
 
-      res.status(201).send(hotel);
+      res.status(201).send(kos);
     } catch (error) {
-      console.log("Masalah Ketika Menambahkan Hotel", error);
+      console.log("Masalah Ketika Menambahkan Kos", error);
       res.status(500).json({ message: "Ada Sesuatu Yang Salah :(" });
     }
   }

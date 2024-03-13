@@ -5,12 +5,12 @@ import * as apiClient from "../api-client";
 
 const AddHotel = () => {
   const { showToast } = useAppContext();
-  const { mutate, isLoading } = useMutation(apiClient.addMyHotel, {
+  const { mutate, isLoading } = useMutation(apiClient.addMyKos, {
     onSuccess: () => {
-      showToast({ message: "Hotel Berhasil Di Tambahkan", type: "SUCCESS" });
+      showToast({ message: "Kos Berhasil Di Tambahkan", type: "SUCCESS" });
     },
     onError: () => {
-      showToast({ message: "Hotel Gagal Di Tambahkan", type: "ERROR" });
+      showToast({ message: "Kos Gagal Di Tambahkan", type: "ERROR" });
     },
   });
   const handleSave = (hotelFormData: FormData) => {
