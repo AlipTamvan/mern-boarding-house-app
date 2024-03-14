@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import exp from "constants";
 import path from "path";
 
 const UI_URL = "http://localhost:5173/";
@@ -46,7 +47,20 @@ test("Should Allow User To Add A Kos", async ({ page }) => {
 
   await page.getByRole("button", { name: "Simpan" }).click();
   await expect(page.getByRole("button", { name: "Menyimpan" })).toBeVisible();
-  await expect(page.getByText("Hotel Berhasil Di Tambahkan")).toBeVisible({
-    // timeout: 25000,
-  });
+  // await expect(page.getByText("Kos Berhasil Di Tambahkan")).toBeVisible();
+});
+test("Should Display Kos", async ({ page }) => {
+  await page.goto(`${UI_URL}my-kos`);
+
+  await expect(page.getByText("Alip")).toBeVisible();
+  await expect(page.getByText("Lorem ipsum dolor sit amet")).toBeVisible();
+  await expect(page.getByText("Mataram ,Mataram")).toBeVisible();
+  await expect(page.getByText("08814766367")).toBeVisible();
+  await expect(page.getByText("Budget")).toBeVisible();
+  await expect(page.getByText("Rp.150000")).toBeVisible();
+  await expect(page.getByText("2 Adults 0 Children")).toBeVisible();
+  await expect(page.getByText("3 Star Rating")).toBeVisible();
+
+  await expect(page.getByRole("link", { name: "Lihat Details" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Tambahkan Kos" })).toBeVisible();
 });

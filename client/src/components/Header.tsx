@@ -21,9 +21,9 @@ export const Header = () => {
               </Link>
               <Link
                 className="flex  items-center text-white px-3 font-bold hover:bg-gray-100 hover:text-green-600 rounded-md"
-                to="/my-bookings"
+                to="/my-kos"
               >
-                Hotel Saya
+                Kos Saya
               </Link>
               <SignOutButton />
             </>

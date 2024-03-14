@@ -7,8 +7,9 @@ import {
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
-import AddHotel from "./pages/AddKos";
+import AddKos from "./pages/AddKos";
 import { useAppContext } from "./contexts/AppContext";
+import MyKos from "./pages/MyKos";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -53,7 +54,15 @@ const App = () => {
               path="/add-kos"
               element={
                 <Layout>
-                  <AddHotel />
+                  <AddKos />
+                </Layout>
+              }
+            />
+            <Route
+              path="/my-kos"
+              element={
+                <Layout>
+                  <MyKos />
                 </Layout>
               }
             />

@@ -1,9 +1,9 @@
 import { useMutation } from "react-query";
-import ManageHotelForm from "../forms/ManageHotelForm/ManageHotelForm";
+import ManageHotelForm from "../forms/ManageKosForm/ManageHotelForm";
 import { useAppContext } from "../contexts/AppContext";
 import * as apiClient from "../api-client";
 
-const AddHotel = () => {
+const AddKos = () => {
   const { showToast } = useAppContext();
   const { mutate, isLoading } = useMutation(apiClient.addMyKos, {
     onSuccess: () => {
@@ -19,4 +19,4 @@ const AddHotel = () => {
   return <ManageHotelForm onSave={handleSave} isLoading={isLoading} />;
 };
 
-export default AddHotel;
+export default AddKos;

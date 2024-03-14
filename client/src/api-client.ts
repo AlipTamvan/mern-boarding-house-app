@@ -1,5 +1,6 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
+import { KosType } from "../../server/src/shared/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
@@ -72,6 +73,16 @@ export const addMyKos = async (hotelFormData: FormData) => {
   });
   if (!response.ok) {
     throw new Error("Gagal Menambahkan Hotel");
+  }
+  return response.json();
+};
+export const fetchMyKos = async (): Promise<KosType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-kos`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error Fetching Kos");
   }
   return response.json();
 };
