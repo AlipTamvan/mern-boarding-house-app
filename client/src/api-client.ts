@@ -86,3 +86,23 @@ export const fetchMyKos = async (): Promise<KosType[]> => {
   }
   return response.json();
 };
+
+export const fetchMyKosById = async (kosId: string): Promise<KosType> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-kos/${kosId}`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error Fething Kos");
+  }
+  return response.json();
+};
+export const updateMyKosById = async (kosFormData: FormData) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/my-kos/${kosFormData.get("kosId")}`,
+    { method: "PUT", body: kosFormData, credentials: "include" }
+  );
+  if (!response.ok) {
+    throw new Error("Gagal MengUpdate Kos");
+  }
+  return response.json()
+};

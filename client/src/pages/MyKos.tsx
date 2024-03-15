@@ -24,8 +24,11 @@ const MyKos = () => {
       </span>
       <div className="grid grid-cols-1 gap-8">
         {" "}
-        {kosData.map((kos) => (
-          <div className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5">
+        {kosData.map((kos, index) => (
+          <div
+            key={index++}
+            className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
+          >
             <h2 className="text-2xl font-bold">{kos.name}</h2>
             <div className="whitespace-pre-line">{kos.description}</div>
             <div className="grid grid-cols-6 gap-2">

@@ -1,11 +1,11 @@
 import { useFormContext } from "react-hook-form";
-import { HotelFormData } from "./ManageHotelForm";
+import { KosFormData } from "./ManageKosForm";
 
 const DetailsSection = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<HotelFormData>();
+  } = useFormContext<KosFormData>();
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold mb-3">Tambahkan Hotel</h1>

@@ -16,7 +16,7 @@ test("should allow user to sign in", async ({ page }) => {
   await page.getByRole("button", { name: "Login" }).click();
 
   await expect(page.getByText("Login Berhasil")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Hotel Saya" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Kos Saya" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Booking Saya" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Sign Out" })).toBeVisible();
 });
@@ -41,7 +41,7 @@ test("should allow user to register", async ({ page }) => {
   await page.getByRole("button", { name: "Buat Akun" }).click();
 
   await expect(page.getByText("Register Berhasil")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Hotel Saya" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Kos Saya" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Booking Saya" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Sign Out" })).toBeVisible();
 });

@@ -1,12 +1,12 @@
 import { useFormContext } from "react-hook-form";
 import { hotelFacilities } from "../../config/hotel-options-config";
-import { HotelFormData } from "./ManageHotelForm";
+import { KosFormData } from "./ManageKosForm";
 
 const FacilitySection = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<HotelFormData>();
+  } = useFormContext<KosFormData>();
 
   return (
     <div>

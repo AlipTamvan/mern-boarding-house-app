@@ -41,14 +41,7 @@ router.post(
       const imageFiles = req.files as Express.Multer.File[];
       const newKos: KosType = req.body;
 
-      const uploadPromises = imageFiles.map(async (image) => {
-        const b64 = Buffer.from(image.buffer).toString("base64");
-        let dataURI = "data:" + image.mimetype + ";base64," + b64;
-        const res = await cloudinary.v2.uploader.upload(dataURI);
-        return res.url;
-      });
-
-      const imageUrls = await Promise.all(uploadPromises);
+      const imageUrls = await uploadImages(imageFiles);
 
       newKos.imageUrls = imageUrls;
       newKos.lastUpdated = new Date();
@@ -73,4 +66,58 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error Fething Kos" });
   }
 });
+
+router.get("/:id", verifyToken, async (req: Request, res: Response) => {
+  const id = req.params.id.toString();
+  try {
+    const kos = await Kos.findOne({ _id: id, userId: req.userId });
+    res.json(kos);
+  } catch (error) {
+    res.status(500).json({ message: "Error Fething Kos" });
+  }
+});
+router.put(
+  "/:kosId",
+  verifyToken,
+  upload.array("imageFiles"),
+  async (req: Request, res: Response) => {
+    try {
+      const updatedKos: KosType = req.body;
+      updatedKos.lastUpdated = new Date();
+
+      const kos = await Kos.findByIdAndUpdate(
+        {
+          _id: req.params.kosId,
+          userId: req.userId,
+        },
+        updatedKos,
+        { new: true }
+      );
+      if (!kos) {
+        return res.status(404).json({ message: "Kos Tidak Di Temukan  " });
+      }
+      const files = req.files as Express.Multer.File[];
+      const updatedImagesUrls = await uploadImages(files);
+
+      kos.imageUrls = [...updatedImagesUrls, ...(updatedKos.imageUrls || [])];
+
+      await kos.save();
+      res.status(201).json(kos);
+    } catch (error) {
+      res.status(500).json({ message: "Ada Sesuatu Yang Salah" });
+    }
+  }
+);
+
+async function uploadImages(imageFiles: Express.Multer.File[]) {
+  const uploadPromises = imageFiles.map(async (image) => {
+    const b64 = Buffer.from(image.buffer).toString("base64");
+    let dataURI = "data:" + image.mimetype + ";base64," + b64;
+    const res = await cloudinary.v2.uploader.upload(dataURI);
+    return res.url;
+  });
+
+  const imageUrls = await Promise.all(uploadPromises);
+  return imageUrls;
+}
 export default router;

@@ -56,11 +56,33 @@ test("Should Display Kos", async ({ page }) => {
   await expect(page.getByText("Lorem ipsum dolor sit amet")).toBeVisible();
   await expect(page.getByText("Mataram ,Mataram")).toBeVisible();
   await expect(page.getByText("08814766367")).toBeVisible();
-  await expect(page.getByText("Budget")).toBeVisible();
+  await expect(page.getByText("Luxury")).toBeVisible();
   await expect(page.getByText("Rp.150000")).toBeVisible();
   await expect(page.getByText("2 Adults 0 Children")).toBeVisible();
-  await expect(page.getByText("3 Star Rating")).toBeVisible();
+  await expect(page.getByText("5 Star Rating")).toBeVisible();
 
-  await expect(page.getByRole("link", { name: "Lihat Details" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Lihat Details" }).first()
+  ).toBeVisible();
   await expect(page.getByRole("link", { name: "Tambahkan Kos" })).toBeVisible();
+});
+
+test("Should Edit Kos", async ({ page }) => {
+  await page.goto(`${UI_URL}my-kos`);
+  await page.getByRole("link", { name: "Lihat Details" }).first().click();
+  await page.waitForSelector('[name="name"]', { state: "attached" });
+  await expect(page.locator('[name="name"]')).toHaveValue("Alip");
+  await page.locator('[name="name"]').fill("Alip UPDATED");
+
+  await page.getByRole("button", { name: "Simpan" }).click();
+
+  await expect(page.getByRole("button", { name: "Menyimpan" })).toBeVisible();
+
+  await page.reload();
+  await expect(page.locator('[name="name"]')).toHaveValue("Alip UPDATED");
+  await page.locator('[name="name"]').fill("Alip");
+
+  await page.getByRole("button", { name: "Simpan" }).click();
+
+  // await expect(page.getByText("Hotel Berhasil Di Update")).toBeVisible();
 });

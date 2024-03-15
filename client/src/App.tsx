@@ -10,6 +10,7 @@ import SignIn from "./pages/SignIn";
 import AddKos from "./pages/AddKos";
 import { useAppContext } from "./contexts/AppContext";
 import MyKos from "./pages/MyKos";
+import EditKos from "./pages/EditKos";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -55,6 +56,14 @@ const App = () => {
               element={
                 <Layout>
                   <AddKos />
+                </Layout>
+              }
+            />
+            <Route
+              path="/edit-kos/:kosId"
+              element={
+                <Layout>
+                  <EditKos />
                 </Layout>
               }
             />

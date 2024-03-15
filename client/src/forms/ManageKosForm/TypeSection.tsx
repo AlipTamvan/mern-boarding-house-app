@@ -1,13 +1,13 @@
 import { useFormContext } from "react-hook-form";
 import { hotelTypes } from "../../config/hotel-options-config";
-import { HotelFormData } from "./ManageHotelForm";
+import { KosFormData } from "./ManageKosForm";
 
 const TypeSection = () => {
   const {
     register,
     watch,
     formState: { errors },
-  } = useFormContext<HotelFormData>();
+  } = useFormContext<KosFormData>();
   const typeWatch = watch("type");
 
   return (

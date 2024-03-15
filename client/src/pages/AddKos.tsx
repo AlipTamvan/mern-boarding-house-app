@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import ManageHotelForm from "../forms/ManageKosForm/ManageHotelForm";
+import ManageKosForm from "../forms/ManageKosForm/ManageKosForm";
 import { useAppContext } from "../contexts/AppContext";
 import * as apiClient from "../api-client";
 
@@ -16,7 +16,7 @@ const AddKos = () => {
   const handleSave = (hotelFormData: FormData) => {
     mutate(hotelFormData);
   };
-  return <ManageHotelForm onSave={handleSave} isLoading={isLoading} />;
+  return <ManageKosForm onSave={handleSave} isLoading={isLoading} />;
 };
 
 export default AddKos;

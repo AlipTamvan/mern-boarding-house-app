@@ -4,8 +4,10 @@ import TypeSection from "./TypeSection";
 import FacilitySection from "./FacilitiesSection";
 import GuestSection from "./GuestSection";
 import ImageSection from "./ImageSection";
+import { KosType } from "../../../../server/src/shared/types";
+import { useEffect } from "react";
 
-export type HotelFormData = {
+export type KosFormData = {
   name: string;
   phoneNumber: string;
   city: string;
@@ -16,20 +18,30 @@ export type HotelFormData = {
   starRating: number;
   facilities: string[];
   imageFiles: FileList;
+  imageUrls: string[];
   adultCount: number;
   childCount: number;
 };
 
 type Props = {
-  onSave: (hotelFormData: FormData) => void;
+  kos?: KosType;
+  onSave: (kosFormData: FormData) => void;
   isLoading: boolean;
 };
 
-const ManageHotelForm = ({ onSave, isLoading }: Props) => {
-  const formMethods = useForm<HotelFormData>();
-  const { handleSubmit } = formMethods;
-  const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
+const ManageKosForm = ({ onSave, isLoading, kos }: Props) => {
+  const formMethods = useForm<KosFormData>();
+  const { handleSubmit, reset } = formMethods;
+
+  useEffect(() => {
+    reset(kos);
+  }, [kos, reset]);
+
+  const onSubmit = handleSubmit((formDataJson: KosFormData) => {
     const formData = new FormData();
+    if (kos) {
+      formData.append("kosId", kos._id);
+    }
     formData.append("name", formDataJson.name);
     formData.append("phoneNumber", formDataJson.phoneNumber);
     formData.append("city", formDataJson.city);
@@ -44,6 +56,12 @@ const ManageHotelForm = ({ onSave, isLoading }: Props) => {
     formDataJson.facilities.forEach((facilities, index) => {
       formData.append(`facilities[${index}]`, facilities);
     });
+
+    if (formDataJson.imageUrls) {
+      formDataJson.imageUrls.forEach((url, index) => {
+        formData.append(`imageUrls[${index}]`, url);
+      });
+    }
 
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append(`imageFiles`, imageFile);
@@ -61,15 +79,15 @@ const ManageHotelForm = ({ onSave, isLoading }: Props) => {
         <ImageSection />
         <span className="flex justify-end">
           <button
-          disabled={isLoading}
+            disabled={isLoading}
             type="submit"
             className="bg-green-600 text-white p-2 font-bold hover:bg-green-500 text-xl rounded-md disabled:bg-gray-500"
           >
-           {isLoading ? "Menyimpan..." :"Simpan"}
+            {isLoading ? "Menyimpan..." : "Simpan"}
           </button>
         </span>
       </form>
     </FormProvider>
   );
 };
-export default ManageHotelForm;
+export default ManageKosForm;
