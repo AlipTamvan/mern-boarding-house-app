@@ -1,6 +1,6 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import { KosType } from "../../server/src/shared/types";
+import { KosSearchResponse, KosType } from "../../server/src/shared/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
@@ -104,5 +104,53 @@ export const updateMyKosById = async (kosFormData: FormData) => {
   if (!response.ok) {
     throw new Error("Gagal MengUpdate Kos");
   }
-  return response.json()
+  return response.json();
+};
+
+export type SearchParams = {
+  destination?: string;
+  checkIn?: string;
+  checkOut?: string;
+  adultCount?: string;
+  childCount?: string;
+  page?: string;
+  facilities?: string[];
+  types?: string[];
+  stars?: string[];
+  maxPrice?: string;
+  sortOption?: string;
+};
+
+export const searchKos = async (
+  SearchParams: SearchParams
+): Promise<KosSearchResponse> => {
+  const queryParams = new URLSearchParams();
+  queryParams.append("destination", SearchParams.destination || "");
+  queryParams.append("checkIn", SearchParams.checkIn || "");
+  queryParams.append("checkOut", SearchParams.checkOut || "");
+  queryParams.append("adultCount", SearchParams.adultCount || "");
+  queryParams.append("childCount", SearchParams.childCount || "");
+  queryParams.append("page", SearchParams.page || "");
+
+  queryParams.append("maxPrice", SearchParams.maxPrice || "");
+  queryParams.append("sortOption", SearchParams.sortOption || "");
+
+  SearchParams.facilities?.forEach((facility) => {
+    queryParams.append("facilities", facility);
+  });
+
+  SearchParams.types?.forEach((type) => {
+    queryParams.append("types", type);
+  });
+
+  SearchParams.stars?.forEach((star) => {
+    queryParams.append("stars", star);
+  });
+
+  const response = await fetch(`${API_BASE_URL}/api/kos/search?${queryParams}`);
+
+  if (!response.ok) {
+    throw new Error("Error Fething Kos");
+  }
+  return response.json();
 };

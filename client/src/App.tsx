@@ -11,6 +11,7 @@ import AddKos from "./pages/AddKos";
 import { useAppContext } from "./contexts/AppContext";
 import MyKos from "./pages/MyKos";
 import EditKos from "./pages/EditKos";
+import Search from "./pages/Search";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -29,7 +30,7 @@ const App = () => {
           path="/search"
           element={
             <Layout>
-              <p>Search Page</p>
+              <Search />
             </Layout>
           }
         />

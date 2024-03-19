@@ -15,3 +15,12 @@ export type KosType = {
   imageUrls: string[];
   lastUpdated: Date;
 };
+
+export type KosSearchResponse = {
+  data: KosType[];
+  pagination : {
+    total: number;
+    page: number;
+    pages: number; 
+  }
+};

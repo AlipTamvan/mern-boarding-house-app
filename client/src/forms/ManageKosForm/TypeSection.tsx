@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { hotelTypes } from "../../config/hotel-options-config";
+import { kosTypes } from "../../config/kos-options-config";
 import { KosFormData } from "./ManageKosForm";
 
 const TypeSection = () => {
@@ -14,7 +14,7 @@ const TypeSection = () => {
     <div>
       <h2 className="text-2xl font-bold mb-3">Tipe</h2>
       <div className="grid grid-cols-5 gap-2">
-        {hotelTypes.map((type, index) => (
+        {kosTypes.map((type, index) => (
           <label
             key={index}
             className={

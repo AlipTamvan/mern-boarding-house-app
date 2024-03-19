@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { hotelFacilities } from "../../config/hotel-options-config";
+import { kosFacilities } from "../../config/kos-options-config";
 import { KosFormData } from "./ManageKosForm";
 
 const FacilitySection = () => {
@@ -12,7 +12,7 @@ const FacilitySection = () => {
     <div>
       <h2 className="text-2xl font-bold mb-3">Fasilitas</h2>
       <div className="grid grid-cols-5 gap-3">
-        {hotelFacilities.map((facilitiy, index) => (
+        {kosFacilities.map((facilitiy, index) => (
           <label className="text-sm flex gap-1 text-grey-700" key={index}>
             <input
               type="checkbox"
