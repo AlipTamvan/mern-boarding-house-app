@@ -1,8 +1,24 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import { KosSearchResponse, KosType } from "../../server/src/shared/types";
+import {
+  KosSearchResponse,
+  KosType,
+  PaymentIntentResponse,
+  UserType,
+} from "../../server/src/shared/types";
+import { SewaFormData } from "./forms/SewaForm/SewaForm";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
+export const fetchCurrentUser = async (): Promise<UserType> => {
+  const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error Fetching User");
+  }
+  return response.json();
+};
 
 export const register = async (formData: RegisterFormData) => {
   const response = await fetch(`${API_BASE_URL}/api/users/register`, {
@@ -153,4 +169,49 @@ export const searchKos = async (
     throw new Error("Error Fething Kos");
   }
   return response.json();
+};
+export const fetchKosById = async (kosId: string): Promise<KosType> => {
+  const response = await fetch(`${API_BASE_URL}/api/kos/${kosId}`);
+  if (!response.ok) {
+    throw new Error("Error Fething Kos");
+  }
+  return response.json();
+};
+export const createPaymentIntent = async (
+  kosId: string,
+  numberOfNights: string
+): Promise<PaymentIntentResponse> => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/kos/${kosId}/sewa/payment-intent`,
+    {
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify({
+        numberOfNights,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Error Fething Payment Intent");
+  }
+  return response.json();
+};
+export const createRoomSewa = async (formData: SewaFormData) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/kos/${formData.kosId}/sewa`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(formData),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Error Sewa Room");
+  }
 };

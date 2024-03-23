@@ -12,6 +12,8 @@ import { useAppContext } from "./contexts/AppContext";
 import MyKos from "./pages/MyKos";
 import EditKos from "./pages/EditKos";
 import Search from "./pages/Search";
+import Detail from "./pages/Detail";
+import Sewa from "./pages/Sewa";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -35,6 +37,14 @@ const App = () => {
           }
         />
         <Route
+          path="/detail/:kosId"
+          element={
+            <Layout>
+              <Detail />
+            </Layout>
+          }
+        />
+        <Route
           path="/register"
           element={
             <Layout>
@@ -52,6 +62,14 @@ const App = () => {
         />
         {isLoggedIn && (
           <>
+            <Route
+              path="/kos/:kosId/sewa"
+              element={
+                <Layout>
+                  <Sewa />
+                </Layout>
+              }
+            />
             <Route
               path="/add-kos"
               element={

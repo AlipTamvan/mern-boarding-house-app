@@ -2,9 +2,22 @@ import express, { Request, Response } from "express";
 import User from "../models/user";
 import jwt from "jsonwebtoken";
 import { check, validationResult } from "express-validator";
+import verifyToken from "../middleware/auth";
 
 const router = express.Router();
 
+router.get("/me", verifyToken, async (req: Request, res: Response) => {
+  const userId = req.userId;
+  try {
+    const user = await User.findById(userId).select("-password");
+    if (!user) return res.status(400).json({ message: "User Tidak Ditemukan" });
+
+    res.json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Ada Sesuatu Yang Salah" });
+  }
+});
 // /api/user/register
 router.post(
   "/register",

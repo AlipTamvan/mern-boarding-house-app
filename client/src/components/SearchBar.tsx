@@ -24,6 +24,10 @@ const SearchBar = () => {
       adultCount,
       childCount
     );
+    console.log(destination);
+    console.log(adultCount);
+    console.log(childCount);
+
     navigate("/search");
   };
 
