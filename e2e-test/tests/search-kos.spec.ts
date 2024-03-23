@@ -66,4 +66,6 @@ test("Should Sewa Hotel", async ({ page }) => {
 
   await page.getByRole("button", { name: "Konfirmasi Sewa" }).click();
   // await expect(page.getByText("Sewa Berhasil")).toBeVisible();
+  await page.getByRole("link", { name: "Booking Saya" }).click();
+  await expect(page.getByText("Alip")).toBeVisible();
 });

@@ -215,3 +215,11 @@ export const createRoomSewa = async (formData: SewaFormData) => {
     throw new Error("Error Sewa Room");
   }
 };
+export const fetchMyBookings = async (): Promise<KosType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-bookings`, {
+    credentials: "include",
+  });
+  if (!response.ok) throw new Error("Tidak Bisa Fetch Bookings");
+
+  return response.json()
+};

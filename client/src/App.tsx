@@ -14,6 +14,7 @@ import EditKos from "./pages/EditKos";
 import Search from "./pages/Search";
 import Detail from "./pages/Detail";
 import Sewa from "./pages/Sewa";
+import MyBookings from "./pages/MyBookings";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -91,6 +92,14 @@ const App = () => {
               element={
                 <Layout>
                   <MyKos />
+                </Layout>
+              }
+            />
+            <Route
+              path="/my-bookings"
+              element={
+                <Layout>
+                  <MyBookings  />
                 </Layout>
               }
             />
