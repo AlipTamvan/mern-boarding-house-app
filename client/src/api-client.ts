@@ -102,6 +102,14 @@ export const fetchMyKos = async (): Promise<KosType[]> => {
   }
   return response.json();
 };
+export const fetchKos = async (): Promise<KosType[]> => {
+  
+  const response = await fetch(`${API_BASE_URL}/api/kos`);
+  if (!response.ok) {
+    throw new Error("Error Fething Kos");
+  }
+  return response.json();
+};
 
 export const fetchMyKosById = async (kosId: string): Promise<KosType> => {
   const response = await fetch(`${API_BASE_URL}/api/my-kos/${kosId}`, {
@@ -221,5 +229,5 @@ export const fetchMyBookings = async (): Promise<KosType[]> => {
   });
   if (!response.ok) throw new Error("Tidak Bisa Fetch Bookings");
 
-  return response.json()
+  return response.json();
 };

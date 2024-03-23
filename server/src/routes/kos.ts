@@ -54,6 +54,15 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const kos = await Kos.find().sort("-lastUpdated");
+    res.json(kos);
+  } catch (error) {
+    res.status(500).json({message: "Error Fetching Kos"})
+  }
+});
+
 router.get(
   "/:id",
   [param("id").notEmpty().withMessage("Kos ID Dibutuhkan")],
